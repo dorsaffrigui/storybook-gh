@@ -24,6 +24,6 @@ jobs:
     - id: build-publish
       uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
       with:
-        path: "./packages/app/storybook-static"
+        path: "./storybook-static"
         install_command: pnpm install
         build_command: pnpm build-storybook
