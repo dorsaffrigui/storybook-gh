@@ -1,0 +1,29 @@
+on:
+  push:
+    branches:
+      - "main"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.build-publish.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    - uses: pnpm/action-setup@v4
+      with:
+       version: 9
+    - id: build-publish
+      uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
+      with:
+        path: "./packages/app/storybook-static"
+        install_command: pnpm ci
+        build_command: pnpm build-storybook
